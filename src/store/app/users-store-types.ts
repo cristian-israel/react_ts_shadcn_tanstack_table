@@ -2,10 +2,17 @@ import { z } from "zod";
 
 export const UserStoreSchema = z.object({
   id: z.string().min(1),
-  active: z.boolean().default(true),
+  active: z.boolean().optional().default(true),
   name: z.string().min(4, "Name must be at least 4 characters long"),
-  tags: z.array(z.string()).default([]),
+  tags: z.array(z.string()).optional().default([]),
 });
+
+// export const UserStoreSchema = z.object({
+//   id: z.string().min(1),
+//   name: z.string().min(4, "Name must be at least 4 characters long"),
+//   active: z.boolean(),
+//   tags: z.array(z.string()),
+// });
 
 export type UserStoreType = z.infer<typeof UserStoreSchema>;
 

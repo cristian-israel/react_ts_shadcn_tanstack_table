@@ -33,7 +33,5 @@ export function useUserData() {
 
 // Exporta um hoock que retorna apenas as ações de acordo coma chave passada
 export function useUserActions(key: keyof UserActionsStoreType) {
-  return userStore((state) => ({
-    [key]: state[key],
-  }));
+  return userStore((state) => state[key]);
 }
