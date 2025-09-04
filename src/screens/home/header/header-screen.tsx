@@ -3,7 +3,7 @@ import { Moon, Sun } from "lucide-react";
 import { usePreferencesStoreData, usePreferencesStoreMethods } from "@/store/config/preferences-store";
 import { Button } from "@/components/ui/button";
 
-export function ScreenHeader() {
+export function HeaderScreen() {
 	const toggleTheme = usePreferencesStoreMethods("toggleTheme");
 	const theme = usePreferencesStoreData("theme");
 

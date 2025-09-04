@@ -47,13 +47,13 @@ export const userStore = create<UserDataStoreType & UserActionsStoreType>(
 );
 
 // Exporta um hoock que retorna apenas os dados
-export const useUserData = () =>
-  userStore((state) => ({
-    users: state.users,
-  }));
+export function useUserData() {
+  return userStore((state) => state.users);
+}
 
 // Exporta um hoock que retorna apenas as ações de acordo coma chave passada
-export const useUserActions = (key: keyof UserActionsStoreType) =>
-  userStore((state) => ({
+export function useUserActions(key: keyof UserActionsStoreType) {
+  return userStore((state) => ({
     [key]: state[key],
   }));
+}
