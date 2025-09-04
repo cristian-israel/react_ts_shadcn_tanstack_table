@@ -1,39 +1,19 @@
 import { nanoid } from "nanoid";
 import { create } from "zustand";
 
-type UserType = {
-  id: string;
-  active: boolean;
-  name: string;
-  age: number;
-  email: string;
-  position: string;
-  tags: string[];
-};
-
-export type UserDataStoreType = {
-  users: UserType[];
-  setUsers: (users: UserType[]) => void;
-  addUser: (user: UserType) => void;
-  updateUser: (user: UserType) => void;
-  deleteUser: (id: string) => void;
-};
-
-export type UserActionsStoreType = {
-  users: UserType[];
-  setUsers: (users: UserType[]) => void;
-  addUser: (user: UserType) => void;
-  updateUser: (user: UserType) => void;
-  deleteUser: (id: string) => void;
-};
+import {
+  UserActionsStoreType,
+  UserDataStoreType,
+  UserStoreType,
+} from "./users-store-types";
 
 export const userStore = create<UserDataStoreType & UserActionsStoreType>(
   (set) => ({
     users: [],
-    setUsers: (users: UserType[]) => set({ users }),
-    addUser: (user: UserType) =>
+    setUsers: (users: UserStoreType[]) => set({ users }),
+    addUser: (user: UserStoreType) =>
       set((state) => ({ users: [...state.users, { ...user, id: nanoid() }] })),
-    updateUser: (user: UserType) =>
+    updateUser: (user: UserStoreType) =>
       set((state) => ({
         users: state.users.map((u) =>
           u.id === user.id ? { ...u, ...user } : u

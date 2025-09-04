@@ -22,7 +22,7 @@ const ConfigContents: ConfigContentsType = [
 
 export function ContentScreen() {
 	return (
-		<Card className="max-w-4xl w-full h-[80vh]">
+		<Card className="max-w-xl w-full h-[80vh]">
 			<Tabs defaultValue="users" className="w-full">
 				<CardHeader className="w-full">
 					<TabsList>
@@ -34,7 +34,7 @@ export function ContentScreen() {
 					</TabsList>
 				</CardHeader>
 
-				<CardContent>
+				<CardContent className="h-full overflow-auto">
 					{ConfigContents.map(({ component, value }) => (
 						<TabsContent value={value}>
 							{component}
