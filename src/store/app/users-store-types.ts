@@ -2,9 +2,10 @@ import { z } from "zod";
 
 export const UserStoreSchema = z.object({
   id: z.string().min(1),
-  active: z.boolean().optional().default(true),
+  active: z.boolean(),
   name: z.string().min(4, "Name must be at least 4 characters long"),
-  tags: z.array(z.string()).optional().default([]),
+  age: z.number().min(0, "Age must be a positive number"),
+  // tags: z.array(z.string()),
 });
 
 // export const UserStoreSchema = z.object({

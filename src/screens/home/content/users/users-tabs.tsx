@@ -1,15 +1,15 @@
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useUserActions, useUserData } from "@/store/app/users-store";
-import { keyofUserType, UserStoreSchema, UserStoreType } from "@/store/app/users-store-types";
+import { UserStoreSchema, UserStoreType } from "@/store/app/users-store-types";
+import { Switch } from "@/components/ui/switch";
 
 export default function UsersTabs() {
 	const users = useUserData();
@@ -17,6 +17,9 @@ export default function UsersTabs() {
 
 	const form = useForm<UserStoreType>({
 		resolver: zodResolver(UserStoreSchema),
+		defaultValues: {
+			active: true,
+		}
 	})
 
 	function onSubmit(data: UserStoreType) {
@@ -38,29 +41,56 @@ export default function UsersTabs() {
 				<Form {...form}>
 					<form className="grid grid-cols-2 gap-4" onSubmit={form.handleSubmit(onSubmit)}>
 
-						<div className="flex flex-col space-y-2 text-muted-foreground col-span-2">
-							<Label htmlFor={"name"} className="text-sm">
-								Name
-							</Label>
+						<FormField
+							control={form.control}
+							name="name"
+							render={({ field }) => (
+								<FormItem className="flex flex-col text-muted-foreground col-span-2">
+									<FormLabel htmlFor={field.name}>Name</FormLabel>
+									<FormControl>
+										<Input placeholder="Enter the user's full name" {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						>
+						</FormField>
 
-							<Input
-								id={"name"}
-								type="text"
-								placeholder={"Name"} />
-						</div>
+						<FormField
+							control={form.control}
+							name="age"
+							render={({ field }) => (
+								<FormItem className="flex flex-col text-muted-foreground">
+									<FormLabel htmlFor={field.name}>Age</FormLabel>
+									<FormControl>
+										<Input placeholder="Enter the user's age" type="number" {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						>
+						</FormField>
 
-						<div className="flex flex-col space-y-2 text-muted-foreground">
-							<Label htmlFor={"active"} className="text-sm">
-								Active
-							</Label>
+						<FormField
+							control={form.control}
+							name="active"
+							render={({ field }) => (
+								<FormItem className="flex flex-col text-muted-foreground">
+									<FormLabel htmlFor={field.name}>Active</FormLabel>
+									<FormControl>
+										<Switch
+											checked={field.value}
+											onCheckedChange={field.onChange}
+											aria-readonly
+										/>
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						>
+						</FormField>
 
-							<Input
-								id={"active"}
-								type="text"
-								placeholder={"Active"} />
-						</div>
-
-						<div className="flex flex-col space-y-2 text-muted-foreground">
+						{/* <div className="flex flex-col text-muted-foreground">
 							<Label htmlFor={"tags"} className="text-sm">
 								Tags
 							</Label>
@@ -69,7 +99,7 @@ export default function UsersTabs() {
 								id={"tags"}
 								type="text"
 								placeholder={"Tags"} />
-						</div>
+						</div> */}
 
 
 						<Button
@@ -92,7 +122,7 @@ export default function UsersTabs() {
 						<p><strong>ID:</strong> {user.id}</p>
 						<p><strong>Name:</strong> {user.name}</p>
 						<p><strong>Active:</strong> {user.active ? "Yes" : "No"}</p>
-						<p><strong>Tags:</strong> {user.tags.join(", ")}</p>
+						{/* <p><strong>Tags:</strong> {user.tags.join(", ")}</p> */}
 					</div>
 				)) : (
 					<p className="text-muted-foreground">No users available.</p>
