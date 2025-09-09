@@ -22,7 +22,7 @@ const ConfigContents: ConfigContentsType = [
 
 export function ContentScreen() {
 	return (
-		<Card className="max-w-xl w-full h-[80vh]">
+		<Card className="max-w-4 w-full h-[85vh]">
 			<Tabs defaultValue="users" className="w-full">
 				<CardHeader className="w-full">
 					<TabsList>
